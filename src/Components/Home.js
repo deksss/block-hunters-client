@@ -1,7 +1,7 @@
 import React from "react";
 
 const Home = () => (
-  <div>Home</div>
+  <div>Hello FakeRetailer.com!</div>
 );
 
 export default Home;
