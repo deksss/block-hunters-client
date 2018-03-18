@@ -1,15 +1,11 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import classnames from "classnames";
-import Card, {  
-  CardContent,
-  CardActions
-} from "material-ui/Card";
+import Card, { CardContent, CardActions } from "material-ui/Card";
 import Collapse from "material-ui/transitions/Collapse";
 import IconButton from "material-ui/IconButton";
 import Typography from "material-ui/Typography";
 import ExpandMoreIcon from "material-ui-icons/ExpandMore";
-import MoreVertIcon from "material-ui-icons/MoreVert";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 
@@ -17,7 +13,8 @@ const styles = theme => ({
   card: {
     maxWidth: "1000px",
     minWidth: "380px",
-    marginTop: "64px"
+    marginTop: "32px",
+    textAlign: "center"
   },
   media: {
     height: 194
@@ -52,14 +49,16 @@ const styles = theme => ({
   },
   header: {
     width: "100%",
-    padding: "24px"
+    padding: "24px",
+    textAlign: "center"
   },
   headerText: {
     fontSize: "30px",
     textAlign: "center",
     lineHeight: "22px",
     fontWeight: "bold",
-    paddingLeft: "5px"
+    paddingLeft: "5px",
+    textAlign: "center"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -91,6 +90,7 @@ class Purchase extends React.Component {
             <img
               className={classes.logo}
               src="https://s3.amazonaws.com/thecools/client/coolslogo.svg"
+              alt="COOLS logo"
             />
             <span className={classes.headerText}>Token</span>
           </div>
@@ -100,6 +100,11 @@ class Purchase extends React.Component {
               of your product in product listings on cools.com
             </Typography>
             <div className={classes.buy}>
+              <Typography component="p" variant="display1">
+                <span style={{ textDecoration: "line-through" }}>$X.99</span>{" "}
+                <span style={{ color: "#F44336" }}>$X.99</span> (0.00X ETH)
+              </Typography>
+
               <TextField
                 id="tokens"
                 label="Token"
@@ -112,12 +117,7 @@ class Purchase extends React.Component {
                 }}
                 margin="normal"
               />
-              <Button
-                size="large"
-                variant="raised"
-                size="large"
-                color="primary"
-              >
+              <Button size="large" variant="raised" color="primary">
                 BUY NOW
               </Button>
             </div>

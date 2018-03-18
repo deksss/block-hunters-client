@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Products from "./Products";
 import Home from "./Home";
 import Purchase from "./Purchase";
+import Adding from "./Adding";
 
 const style = {
   display: "flex",
@@ -18,6 +19,7 @@ const Main = () => (
       <Route path="/home" component={Home} />
       <Route path="/products" component={Products} />
       <Route path="/purchase" component={Purchase} />
+      <Route path="/adding" component={Adding} />
       <Route path="/" component={Home} />
     </Switch>
   </main>

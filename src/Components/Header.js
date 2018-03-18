@@ -56,6 +56,9 @@ class Header extends React.Component {
             <Button component={Link} to="/purchase">
             Purchase
             </Button>
+            <Button component={Link} to="/adding">
+            Adding
+            </Button>
             <div>
                   <IconButton
                 aria-owns={open ? "menu-appbar" : null}
