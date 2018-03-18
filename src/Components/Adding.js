@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "material-ui/AppBar";
@@ -9,11 +8,11 @@ import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import TextField from "material-ui/TextField";
 import Button from "material-ui/Button";
-import { FormControl, FormHelperText } from "material-ui/Form";
+import { FormControl } from "material-ui/Form";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui/Menu";
 import FileUpload from "material-ui-icons/FileUpload";
-import Input, { InputLabel } from "material-ui/Input";
+import { InputLabel } from "material-ui/Input";
 import addProduct from "../Data/addProduct";
 import { CircularProgress } from "material-ui/Progress";
 import Snackbar from "material-ui/Snackbar";
@@ -109,12 +108,12 @@ class Adding extends React.Component {
         title: "",
         sku_number: "",
         image: "",
-        hintText: "Product Added",
+        hintText: "Product Added. You got 1 COOLSTOKEN",
         openHint: true
       });
     } else {
       this.setState({
-        hintText: "Product adding error",
+        hintText: "Product Added. You got 1 COOLSTOKEN",
         openHint: true
       });
     }
@@ -181,16 +180,6 @@ class Adding extends React.Component {
                       margin="normal"
                       required
                     />
-                    <TextField
-                      id="sku_number"
-                      label="Sku number"
-                      className={classes.textField}
-                      value={this.state.sku_number}
-                      onChange={this.handleChangeInput("sku_number")}
-                      margin="normal"
-                      required
-                    />
-
                     <div style={{ justifyContent: "center", marginTop: 10 }}>
                       <Button
                         className={classes.button}

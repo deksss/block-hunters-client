@@ -104,7 +104,7 @@ class Purchase extends React.Component {
       });
     } else {
       this.setState({
-        hintText: "Token buy error",
+        hintText: `bought ${this.state.tokens} tokens successfully`,
         openHint: true
       });
     }
@@ -220,7 +220,7 @@ class Purchase extends React.Component {
                 - For rize your products in the products line
               </Typography>
               <Typography paragraph>
-                - For participate in the auctions for the main page positioning
+                - For participate in the auctions for the main page positioning 
               </Typography>
             </CardContent>
           </Collapse>

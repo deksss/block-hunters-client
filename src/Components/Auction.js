@@ -1,20 +1,16 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
-import classnames from "classnames";
-import Card, { CardContent, CardActions } from "material-ui/Card";
-import Collapse from "material-ui/transitions/Collapse";
-import IconButton from "material-ui/IconButton";
+import Card, { CardContent } from "material-ui/Card"; 
 import Typography from "material-ui/Typography";
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import sendBet from "../Data/bet";
 import { CircularProgress } from "material-ui/Progress";
 import Snackbar from "material-ui/Snackbar";
-import { FormControl, FormHelperText } from "material-ui/Form";
+import { FormControl,  } from "material-ui/Form";
 import Select from "material-ui/Select";
 import { MenuItem } from "material-ui/Menu";
-import Input, { InputLabel } from "material-ui/Input";
+import  { InputLabel } from "material-ui/Input";
 
 const styles = theme => ({
   card: {
@@ -46,7 +42,6 @@ const styles = theme => ({
   bet: {
     display: "flex",
     alignItems: "flex-end",
-    flexDirection: "column",
     justifyContent: "space-around",
     flexDirection: "row",
     width: "100%",
@@ -66,7 +61,6 @@ const styles = theme => ({
     lineHeight: "22px",
     fontWeight: "bold",
     paddingLeft: "5px",
-    textAlign: "center"
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -80,7 +74,8 @@ class Auction extends React.Component {
     category: "",
     tokens: 1,
     openHint: false,
-    hintText: ""
+    hintText: "",
+    place: 1,
   };
 
   handleChange = name => event => {
@@ -106,7 +101,7 @@ class Auction extends React.Component {
       });
     } else {
       this.setState({
-        hintText: "Error",
+        hintText: `Bid ${this.state.tokens} tokens successfully`,
         openHint: true
       });
     }
@@ -131,7 +126,23 @@ class Auction extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <Typography component="p" variant="display1">
-              Place bid for chance to take first place in category
+              Place bid for chance to take
+              <FormControl style={{ width: "180px" }}>
+              <InputLabel htmlFor="type-simple">Select place</InputLabel>
+              <Select
+                value={this.state.place}
+                onChange={this.handleChangeType}
+                inputProps={{
+                  name: "place",  
+                  id: "place"
+                }}
+              >
+                <MenuItem value={"1"}>First</MenuItem>
+                <MenuItem value={"2"}>Second</MenuItem>
+                <MenuItem value={"3"}>Third</MenuItem>
+              </Select>
+            </FormControl>
+               place in category
             </Typography>
             <div className={classes.bet}>
               <form autoComplete="off">
@@ -148,9 +159,11 @@ class Auction extends React.Component {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={"W1"}>Women</MenuItem>
-                    <MenuItem value={"M1"}>Man</MenuItem>
-                    <MenuItem value={"H1"}>Home</MenuItem>
+                    <MenuItem value={"C1"}>Clothes</MenuItem>
+                    <MenuItem value={"A1"}>Shoes</MenuItem>
+                    <MenuItem value={"A1"}>Accessorize</MenuItem>
+                    <MenuItem value={"B1"}>Bags</MenuItem>
+                    <MenuItem value={"B2"}>Beauty</MenuItem>
                   </Select>
                 </FormControl>
                 <TextField
@@ -184,7 +197,7 @@ class Auction extends React.Component {
               Current owner: 
             </Typography>
             <p >
-             Some Fake Retailer
+              Example Retailer
           </p>
           </CardContent>
         </Card>
