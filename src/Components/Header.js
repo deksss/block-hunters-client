@@ -47,6 +47,7 @@ class Header extends React.Component {
             >
               COOLS Portal
             </Typography>
+            <div>
             <Button component={Link} to="/products">
               Products
             </Button>
@@ -59,6 +60,7 @@ class Header extends React.Component {
             <Button component={Link} to="/adding">
             Add
             </Button>
+            </div>
             <div>
                   <IconButton
                 aria-owns={open ? "menu-appbar" : null}
