@@ -15,7 +15,8 @@ import { MenuItem } from "material-ui/Menu";
 import FileUpload from "material-ui-icons/FileUpload";
 import Input, { InputLabel } from "material-ui/Input";
 import addProduct from "../Data/addProduct";
-import { CircularProgress } from 'material-ui/Progress';
+import { CircularProgress } from "material-ui/Progress";
+import Snackbar from "material-ui/Snackbar";
 
 function TabContainer({ children, dir }) {
   return (
@@ -63,7 +64,10 @@ class Adding extends React.Component {
     id: "",
     image: "",
     salePrice: 0,
-    type: ""
+    type: "",
+    sending: false,
+    openHint: false,
+    hintText: ""
   };
 
   handleChangeInput = name => event => {
@@ -87,12 +91,17 @@ class Adding extends React.Component {
   handleAddProduct = async event => {
     this.setState({ sending: true });
     const { url, brand, title, image, price, salePrice } = this.state;
-    const sended = await addProduct(
-      { url, brand, title, image, price, salePrice }
-    );
+    const sended = await addProduct({
+      url,
+      brand,
+      title,
+      image,
+      price,
+      salePrice
+    });
 
     this.setState({ sending: false });
-    if (sended.done ) {
+    if (sended.done) {
       this.setState({
         price: 0,
         url: "",
@@ -100,12 +109,24 @@ class Adding extends React.Component {
         title: "",
         id: "",
         image: "",
-        salePrice: 0
+        salePrice: 0,
+          hintText: "Product Added",
+          openHint: true
+      });
+    } else {
+      this.setState({
+        hintText: "Product adding error",
+        openHint: true
       });
     }
   };
 
-  handleChangeType;
+  handleClose = () => {
+    this.setState({
+      openHint: false,
+      hintText: ""
+    });
+  };
 
   render() {
     const { classes, theme } = this.props;
@@ -195,7 +216,9 @@ class Adding extends React.Component {
                         color="primary"
                         onClick={this.handleAddProduct}
                       >
-                        Add{this.state.sending &&  <CircularProgress className={classes.progress} />}
+                        Add{this.state.sending && (
+                          <CircularProgress className={classes.progress} />
+                        )}
                       </Button>
                     </div>
                   </Paper>
@@ -241,7 +264,6 @@ class Adding extends React.Component {
                   className={classes.button}
                   variant="raised"
                   color="primary"
-  
                 >
                   Upload
                   <FileUpload className={classes.rightIcon} />
@@ -250,6 +272,16 @@ class Adding extends React.Component {
             </Paper>
           </TabContainer>
         </SwipeableViews>
+        <Snackbar
+          open={this.state.openHint}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={this.handleClose}
+          autoHideDuration={4000}
+          SnackbarContentProps={{
+            "aria-describedby": "message-id"
+          }}
+          message={<span id="message-id">{this.state.hintText}</span>}
+        />
       </div>
     );
   }

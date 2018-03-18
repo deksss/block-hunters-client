@@ -1,13 +1,13 @@
 import axios from 'axios';
-export const SEND_URL = `blablabla/api/v1/addproduct`;
+export const BUY_URL = `blablabla/api/v2/buytoken`;
 
 
 
-export const sendProduct = async (request) => {
+export const buyTokens = async (request) => {
   let response = null;
 
   try {
-    response = await axios.post(SEND_URL, request);
+    response = await axios.post(BUY_URL, request);
 
     if (response) {
       return { done: true };
@@ -18,4 +18,4 @@ export const sendProduct = async (request) => {
 
 };
 
-export default sendProduct;
+export default buyTokens;

@@ -8,6 +8,9 @@ import Typography from "material-ui/Typography";
 import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
+import buyTokens from "../Data/buy";
+import { CircularProgress } from "material-ui/Progress";
+import Snackbar from "material-ui/Snackbar";
 
 const styles = theme => ({
   card: {
@@ -68,7 +71,12 @@ const styles = theme => ({
 });
 
 class Purchase extends React.Component {
-  state = { expanded: false, tokens: 1 };
+  state = {
+    expanded: false,
+    tokens: 1,
+    openHint: false,
+    hintText: ""
+  };
 
   handleExpandClick = () => {
     this.setState({ expanded: !this.state.expanded });
@@ -77,6 +85,36 @@ class Purchase extends React.Component {
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
+    });
+  };
+
+  handleBuyToken = async event => {
+    this.setState({ sending: true });
+    const { tokens } = this.state;
+    const sended = await buyTokens({
+      tokens
+    });
+
+    this.setState({ sending: false });
+    if (sended.done) {
+      this.setState({
+        hintText: `bought ${this.state.tokens} tokens successfully`,
+        tokens: 1,
+        openHint: true
+      });
+    } else {
+      this.setState({
+        hintText: "Token buy error",
+        openHint: true
+      });
+    }
+  };
+
+
+  handleClose = () => {
+    this.setState({
+      openHint: false,
+      hintText: ""
     });
   };
 
@@ -117,8 +155,16 @@ class Purchase extends React.Component {
                 }}
                 margin="normal"
               />
-              <Button size="large" variant="raised" color="primary">
+              <Button
+                size="large"
+                variant="raised"
+                color="primary"
+                onClick={this.handleBuyToken}
+              >
                 BUY NOW
+                {this.state.sending && (
+                  <CircularProgress className={classes.progress} />
+                )}
               </Button>
             </div>
           </CardContent>
@@ -145,6 +191,16 @@ class Purchase extends React.Component {
             </CardContent>
           </Collapse>
         </Card>
+        <Snackbar
+          open={this.state.openHint}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={this.handleClose}
+          autoHideDuration={4000}
+          SnackbarContentProps={{
+            "aria-describedby": "message-id"
+          }}
+          message={<span id="message-id">{this.state.hintText}</span>}
+        />
       </div>
     );
   }
