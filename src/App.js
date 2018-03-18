@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import Header from "./Components/Header";
+import Main from "./Components/Main";
+import Footer from "./Components/Footer";
+import web3 from "./Data/web3.js";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+console.log(web3);
+
+//var version = web3.version.api;
+console.log(web3.isConnected()); 
+
+const App = () => (
+  <Fragment>
+    <Header />
+    <Main />
+    <Footer />
+  </Fragment>
+);
+
+
 
 export default App;
