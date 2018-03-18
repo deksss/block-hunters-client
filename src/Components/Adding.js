@@ -30,6 +30,7 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
+    maxWidth: '100%',
     marginTop: "32px"
   },
   rootOnePruduct: {

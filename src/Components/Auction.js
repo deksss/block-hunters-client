@@ -8,14 +8,18 @@ import Typography from "material-ui/Typography";
 import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
-import buyTokens from "../Data/buy";
+import sendBet from "../Data/bet";
 import { CircularProgress } from "material-ui/Progress";
 import Snackbar from "material-ui/Snackbar";
+import { FormControl, FormHelperText } from "material-ui/Form";
+import Select from "material-ui/Select";
+import { MenuItem } from "material-ui/Menu";
+import Input, { InputLabel } from "material-ui/Input";
 
 const styles = theme => ({
   card: {
-    maxWidth: "1000px",
-    minWidth: "380px",
+    maxWidth: "500px",
+    minWidth: "280px",
     marginTop: "32px",
     textAlign: "center"
   },
@@ -39,12 +43,14 @@ const styles = theme => ({
     width: "100%",
     textAlign: "right"
   },
-  buy: {
-    marginTop: "32px",
+  bet: {
     display: "flex",
-    justifyContent: "center",
+    alignItems: "flex-end",
     flexDirection: "column",
-    alignItems: "center"
+    justifyContent: "space-around",
+    flexDirection: "row",
+    width: "100%",
+    flexWrap: "wrap"
   },
   logo: {
     width: "106px",
@@ -69,16 +75,12 @@ const styles = theme => ({
   }
 });
 
-class Purchase extends React.Component {
+class Auction extends React.Component {
   state = {
-    expanded: false,
+    category: "",
     tokens: 1,
     openHint: false,
     hintText: ""
-  };
-
-  handleExpandClick = () => {
-    this.setState({ expanded: !this.state.expanded });
   };
 
   handleChange = name => event => {
@@ -87,28 +89,28 @@ class Purchase extends React.Component {
     });
   };
 
-  handleBuyToken = async event => {
+  handleBet = async event => {
     this.setState({ sending: true });
-    const { tokens } = this.state;
-    const sended = await buyTokens({
-      tokens
+    const { tokens, category } = this.state;
+    const sended = await sendBet({
+      tokens,
+      category
     });
 
     this.setState({ sending: false });
     if (sended.done) {
       this.setState({
-        hintText: `bought ${this.state.tokens} tokens successfully`,
+        hintText: `Bid ${this.state.tokens} tokens successfully`,
         tokens: 1,
         openHint: true
       });
     } else {
       this.setState({
-        hintText: "Token buy error",
+        hintText: "Error",
         openHint: true
       });
     }
   };
-
 
   handleClose = () => {
     this.setState({
@@ -117,78 +119,74 @@ class Purchase extends React.Component {
     });
   };
 
+  handleChangeType = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
       <div>
         <Card className={classes.card}>
-          <div className={classes.header}>
-            <img
-              className={classes.logo}
-              src="https://s3.amazonaws.com/thecools/client/coolslogo.svg"
-              alt="COOLS logo"
-            />
-            <span className={classes.headerText}>Token</span>
-          </div>
           <CardContent>
             <Typography component="p" variant="display1">
-              CoolsToken is a new cryptocurrency, which will raise the position
-              of your product in product listings on cools.com
+              Place bid for chance to take first place in category
             </Typography>
-            <div className={classes.buy}>
-              <Typography component="p" variant="display1">
-                <span style={{ textDecoration: "line-through" }}>$X.99</span>{" "}
-                <span style={{ color: "#F44336" }}>$X.99</span> (0.00X ETH)
-              </Typography>
+            <div className={classes.bet}>
+              <form autoComplete="off">
+                <FormControl style={{ width: "200px" }}>
+                  <InputLabel htmlFor="type-simple">Select category</InputLabel>
+                  <Select
+                    value={this.state.category}
+                    onChange={this.handleChangeType}
+                    inputProps={{
+                      name: "category",
+                      id: "category"
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"W1"}>Women</MenuItem>
+                    <MenuItem value={"M1"}>Man</MenuItem>
+                    <MenuItem value={"H1"}>Home</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  id="tokens"
+                  label="Token"
+                  value={this.state.tokens}
+                  onChange={this.handleChange("tokens")}
+                  type="number"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin="normal"
+                />
+              </form>
 
-              <TextField
-                id="tokens"
-                label="Token"
-                value={this.state.tokens}
-                onChange={this.handleChange("tokens")}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-              />
               <Button
                 size="large"
                 variant="raised"
                 color="primary"
-                onClick={this.handleBuyToken}
+                onClick={this.handleBet}
+                style={{alignSelf: 'center', marginTop: 15}}
               >
-                BUY NOW
+                Bid
                 {this.state.sending && (
                   <CircularProgress className={classes.progress} />
                 )}
               </Button>
             </div>
+            <Typography component="p" variant="display1">
+              Current owner: 
+            </Typography>
+            <p >
+             Some Fake Retailer
+          </p>
           </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
-            <div className={classes.details}>Details</div>
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph variant="body2">
-                Info:
-              </Typography>
-
-              <Typography paragraph>Bla Bla Bla</Typography>
-            </CardContent>
-          </Collapse>
         </Card>
         <Snackbar
           open={this.state.openHint}
@@ -205,4 +203,4 @@ class Purchase extends React.Component {
   }
 }
 
-export default withStyles(styles)(Purchase);
+export default withStyles(styles, { withTheme: true })(Auction);

@@ -4,12 +4,13 @@ import Products from "./Products";
 import Home from "./Home";
 import Purchase from "./Purchase";
 import Adding from "./Adding";
+import Auction from "./Auction";
 
 const style = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  minHeight: "calc(100vh - 100px)",
+  minHeight: "calc(100vh - 120px)",
   marginTop: "10px"
 };
 
@@ -20,6 +21,7 @@ const Main = () => (
       <Route path="/products" component={Products} />
       <Route path="/purchase" component={Purchase} />
       <Route path="/adding" component={Adding} />
+      <Route path="/auction" component={Auction} />
       <Route path="/" component={Home} />
     </Switch>
   </main>

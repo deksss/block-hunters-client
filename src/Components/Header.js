@@ -47,17 +47,17 @@ class Header extends React.Component {
             >
               COOLS Portal
             </Typography>
-            <Button component={Link} to="/home">
-              Home
-            </Button>
             <Button component={Link} to="/products">
               Products
             </Button>
             <Button component={Link} to="/purchase">
             Purchase
             </Button>
+            <Button component={Link} to="/auction">
+            Auction
+            </Button>
             <Button component={Link} to="/adding">
-            Adding
+            Add
             </Button>
             <div>
                   <IconButton
