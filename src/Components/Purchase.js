@@ -59,7 +59,8 @@ const styles = theme => ({
     textAlign: "center",
     lineHeight: "22px",
     fontWeight: "bold",
-    paddingLeft: "5px",
+    paddingLeft: "10px",
+    paddingRight: "10px",
     textAlign: "center"
   },
   textField: {
@@ -109,7 +110,6 @@ class Purchase extends React.Component {
     }
   };
 
-
   handleClose = () => {
     this.setState({
       openHint: false,
@@ -124,17 +124,20 @@ class Purchase extends React.Component {
       <div>
         <Card className={classes.card}>
           <div className={classes.header}>
+            <span className={classes.headerText}>The</span>
             <img
               className={classes.logo}
               src="https://s3.amazonaws.com/thecools/client/coolslogo.svg"
               alt="COOLS logo"
             />
-            <span className={classes.headerText}>Token</span>
+            <span className={classes.headerText}>partners Token</span>
           </div>
           <CardContent>
             <Typography component="p" variant="display1">
-              CoolsToken is a new cryptocurrency, which will raise the position
-              of your product in product listings on cools.com
+              Blockchain advertising technology running on COOLS Network. Cools
+              Token (CST) is a new cryptocurrency for raising the position of
+              your product on COOLS product list Transfer your position and
+              digital assets between COOLS Network and Ethereum
             </Typography>
             <div className={classes.buy}>
               <Typography component="p" variant="display1">
@@ -182,11 +185,43 @@ class Purchase extends React.Component {
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph variant="body2">
-                Info:
+              <h3>What is the COOLS token?</h3>
+
+              <Typography paragraph>
+                The COOLS token acts as a one time membership currency for all
+                the products positioning on cools.com. It allows you to rise
+                your products and put on the first position in the web-store.
               </Typography>
 
-              <Typography paragraph>Bla Bla Bla</Typography>
+              <h3>What is the COOLS token?</h3>
+
+              <Typography paragraph>
+                The COOLS token acts as a one time membership currency for all
+                the products positioning on cools.com. It allows you to rise
+                your products and put on the first position in the web-store.
+              </Typography>
+
+              <h3>How does it work?</h3>
+
+              <Typography paragraph>
+                The token acts like a software license key. It’s implemented as
+                an ERC20 token on Ethereum, which you hold in your Ethereum
+                wallet. When you attempt an asset transfer from a COOLS token
+                service to Ethereum the service first checks the COOLS token
+                balance of your wallet. If you have at least 1 token in your
+                possession, you can proceed with the asset transfer. If not,
+                you’ll need to purchase a token before you’ll be allowed to
+                transfer data between chains.
+              </Typography>
+
+              <h3>What can I use it for?</h3>
+
+              <Typography paragraph>
+                - For rize your products in the products line
+              </Typography>
+              <Typography paragraph>
+                - For participate in the auctions for the main page positioning
+              </Typography>
             </CardContent>
           </Collapse>
         </Card>

@@ -30,7 +30,7 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
-    maxWidth: '100%',
+    maxWidth: "100%",
     marginTop: "32px"
   },
   rootOnePruduct: {
@@ -106,13 +106,11 @@ class Adding extends React.Component {
       this.setState({
         price: 0,
         url: "",
-        brand: "",
         title: "",
-        id: "",
+        sku_number: "",
         image: "",
-        salePrice: 0,
-          hintText: "Product Added",
-          openHint: true
+        hintText: "Product Added",
+        openHint: true
       });
     } else {
       this.setState({
@@ -157,15 +155,6 @@ class Adding extends React.Component {
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
                     <TextField
-                      id="id"
-                      label="Id"
-                      className={classes.textField}
-                      value={this.state.id}
-                      onChange={this.handleChangeInput("id")}
-                      margin="normal"
-                      required
-                    />
-                    <TextField
                       id="title"
                       label="Title"
                       className={classes.textField}
@@ -193,23 +182,15 @@ class Adding extends React.Component {
                       required
                     />
                     <TextField
-                      id="price"
-                      label=" Price"
+                      id="sku_number"
+                      label="Sku number"
                       className={classes.textField}
-                      value={this.state.price}
-                      onChange={this.handleChangeInput("price")}
+                      value={this.state.sku_number}
+                      onChange={this.handleChangeInput("sku_number")}
                       margin="normal"
-                      type="number"
+                      required
                     />
-                    <TextField
-                      id="salePrice"
-                      label="Sale Price"
-                      className={classes.textField}
-                      value={this.state.salePrice}
-                      onChange={this.handleChangeInput("salePrice")}
-                      margin="normal"
-                      type="number"
-                    />
+
                     <div style={{ justifyContent: "center", marginTop: 10 }}>
                       <Button
                         className={classes.button}
