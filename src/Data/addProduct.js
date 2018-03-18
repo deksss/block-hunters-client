@@ -1,5 +1,5 @@
 import axios from "axios";
-export const SEND_URL = `http://localhost:80/set-product/ `;
+export const SEND_URL = `http://localhost:5000/set-product/ `;
 
 export const sendProduct = async request => {
   let response = null;
@@ -11,7 +11,7 @@ export const sendProduct = async request => {
   };
   console.log(requestNormalized);
   try {
-    response = await axios.post(SEND_URL, request);
+    response = await axios.post(SEND_URL, requestNormalized);
 
     if (response) {
       return { done: true };
